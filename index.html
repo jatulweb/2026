@@ -1,207 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Atul Jadhav | Enterprise Architect</title>
     <style>
-        :root {
-            --bg-color: #0f172a;
-            --text-main: #94a3b8;
-            --text-bright: #e2e8f0;
-            --accent: #5eead4;
-            --card-hover: rgba(30, 41, 59, 0.5);
+        :root{
+            --bg:#0b1220;
+            --panel:#071026;
+            --muted:#94a3b8;
+            --bright:#e2e8f0;
+            --accent:#5eead4;
+            --glass: rgba(255,255,255,0.04);
+            --card-hover: rgba(30,41,59,0.5);
+            --max-w:1200px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, sans-serif;
-            line-height: 1.6;
-            scroll-behavior: smooth;
+        *{box-sizing:border-box;margin:0;padding:0}
+        html,body{height:100%}
+        body{
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg,#071124 0%, #05060a 100%);
+            color:var(--muted);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            line-height:1.6;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            padding: 0 50px;
+        /* Page layout */
+        .page {
+            max-width:var(--max-w);
+            margin: 36px auto;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            border-radius:14px;
+            overflow:hidden;
+            box-shadow: 0 10px 40px rgba(2,6,23,0.6);
         }
 
-        /* Left Column - Fixed */
-        header {
-            width: 45%;
-            height: 100vh;
-            position: sticky;
-            top: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 100px 0;
+        /* Banner */
+        .banner {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding: 28px 24px;
+            background: linear-gradient(90deg, rgba(94,234,212,0.06), rgba(99,102,241,0.04));
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .banner-inner{
+            width:100%;
+            max-width:var(--max-w);
+            display:flex;
+            gap:20px;
+            align-items:center;
+        }
+        .banner .brand {
+            display:flex;
+            gap:16px;
+            align-items:center;
         }
 
-        header h1 { color: var(--text-bright); font-size: 3rem; font-weight: 700; }
-        header h2 { color: var(--text-bright); font-size: 1.25rem; font-weight: 500; margin-top: 10px; }
-        header p { max-width: 300px; margin-top: 20px; font-size: 0.9rem; }
-
-        nav ul { list-style: none; margin-top: 50px; }
-        nav li { margin: 15px 0; }
-        nav a { 
-            text-decoration: none; 
-            color: var(--text-main); 
-            font-weight: bold; 
-            font-size: 0.8rem; 
-            letter-spacing: 0.1rem; 
-            text-transform: uppercase;
-            transition: 0.3s;
+        .headshot {
+            width:92px;
+            height:92px;
+            border-radius: 999px;
+            object-fit:cover;
+            border:3px solid rgba(255,255,255,0.06);
+            box-shadow: 0 6px 22px rgba(2,6,23,0.6);
+            background: linear-gradient(180deg,#0f172a,#071026);
         }
-        nav a:hover { color: var(--accent); padding-left: 10px; }
-
-        /* Right Column - Scrolling */
-        main { width: 55%; padding: 100px 0; }
-
-        section { margin-bottom: 120px; }
-        .section-title { display: none; } /* Mobile only title */
-
-        .experience-card {
-            padding: 20px;
-            border-radius: 8px;
-            transition: 0.3s;
-            margin-bottom: 30px;
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 20px;
+        .banner h1{
+            color:var(--bright);
+            font-size:1.4rem;
+            letter-spacing:0.01em;
+            margin:0;
         }
-        .experience-card:hover { background: var(--card-hover); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        .date { font-size: 0.8rem; text-transform: uppercase; font-weight: 600; padding-top: 5px; }
-        .content h3 { color: var(--text-bright); font-size: 1.1rem; }
-        .content h4 { color: var(--text-main); font-size: 0.9rem; margin-bottom: 15px; }
-        .content ul { list-style: none; font-size: 0.9rem; }
-        .content li { margin-bottom: 10px; position: relative; padding-left: 15px; }
-        .content li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
-
-        .skills-tag {
-            display: inline-block;
-            background: rgba(94, 234, 212, 0.1);
-            color: var(--accent);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            margin: 5px 5px 0 0;
-            font-weight: 600;
+        .banner .sub {
+            color:var(--accent);
+            font-weight:600;
+            font-size:0.85rem;
         }
 
-        @media (max-width: 1024px) {
-            .container { flex-direction: column; padding: 0 20px; }
-            header { width: 100%; height: auto; position: relative; padding: 50px 0; }
-            main { width: 100%; padding: 20px 0; }
-            .experience-card { grid-template-columns: 1fr; }
+        /* Main container: left fixed, right scroll */
+        .container{
+            display:flex;
+            gap:0;
+            padding: 36px;
+        }
+
+        header{
+            width:320px;
+            min-width:260px;
+            padding-right:28px;
+            border-right:1px solid rgba(255,255,255,0.03);
+            color:var(--muted);
+        }
+
+        header .intro {
+            margin-bottom:22px;
+        }
+        header h2{ color:var(--bright); font-size:1rem; font-weight:600; margin-top:4px}
+        header p{ font-size:0.92rem; color:var(--muted); margin-top:10px; max-width:260px }
+
+        nav{ margin-top:18px }
+        nav ul{ list-style:none; display:block; padding-left:0 }
+        nav li{ margin:10px 0 }
+        nav a{
+            color:var(--muted);
+            text-decoration:none;
+            font-weight:600;
+            font-size:0.78rem;
+            letter-spacing:0.09em;
+            text-transform:uppercase;
+            display:inline-block;
+            transition:all .18s ease;
+        }
+        nav a:hover{ color:var(--accent); transform:translateX(6px) }
+
+        .contact{ margin-top:28px; font-weight:700; color:var(--accent) }
+        .contact a{ color:inherit; text-decoration:none; font-weight:600 }
+
+        main{
+            flex:1;
+            padding-left:36px;
+        }
+        section{ margin-bottom:36px; color:var(--muted) }
+        section h3{ color:var(--bright); margin-bottom:14px }
+        .experience-card{
+            background:var(--glass);
+            border:1px solid rgba(255,255,255,0.02);
+            padding:16px;
+            border-radius:10px;
+            margin-bottom:16px;
+            display:grid;
+            grid-template-columns:110px 1fr;
+            gap:16px;
+            align-items:start;
+            transition: box-shadow .18s ease, transform .12s ease;
+        }
+        .experience-card:hover{ box-shadow:0 8px 40px rgba(2,6,23,0.6); transform:translateY(-4px) }
+        .date{ font-size:0.78rem; color:var(--muted); font-weight:700; text-transform:uppercase }
+        .content h4{ margin:0 0 8px 0; color:var(--accent); font-weight:700 }
+        .content ul{ list-style:none; padding-left:0; margin-top:8px; color:var(--muted) }
+        .content li{ margin-bottom:8px; position:relative; padding-left:18px }
+        .content li::before{ content:"▹"; position:absolute; left:0; color:var(--accent) }
+
+        .skills-tag{ display:inline-block; background:rgba(94,234,212,0.07); color:var(--accent); padding:6px 10px; border-radius:999px; font-size:0.78rem; margin:6px 8px 0 0; font-weight:700 }
+
+        @media (max-width:980px){
+            .container{ flex-direction:column; padding:20px }
+            header{ width:100%; border-right:0; border-bottom:1px solid rgba(255,255,255,0.03); padding-bottom:18px; margin-bottom:18px }
+            .banner .brand{ gap:12px }
+            .headshot{ width:72px;height:72px }
+            .experience-card{ grid-template-columns:1fr; }
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <header>
-        <div>
-            <h1>Atul Jadhav</h1>
-            <h2>Senior Enterprise Architect</h2>
-            <p>I build scalable digital experience platforms and content supply chains for Fortune 500 enterprises.</p>
-            
-            <nav>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                </ul>
-            </nav>
+    <div class="page">
+        <div class="banner" role="banner">
+            <div class="banner-inner">
+                <div class="brand">
+                    <!-- Put your headshot at images/headshot.jpg or update path -->
+                    <img class="headshot" src="https://media.licdn.com/dms/image/v2/D4E03AQF0G4RP8_z7RQ/profile-displayphoto-scale_200_200/B4EZwwPH14JAAY-/0/1770335801629?e=1773273600&v=beta&t=Wn6oPgb_JrL5QLSW_tg9SO6vbkALyxpXwCYiclqBZZU" alt="Atul Jadhav headshot" />
+                    <div>
+                        <h1>Atul Jadhav</h1>
+                        <div class="sub">Senior Enterprise Architect — Content Supply Chain & Experience Platforms</div>
+                    </div>
+                </div>
+                <div style="margin-left:auto; color:var(--muted); font-size:0.9rem;">
+                    <div><a href="mailto:atulplay3@gmail.com" style="color:var(--muted); text-decoration:none;">atulplay3@gmail.com</a></div>
+                    <div style="margin-top:6px"><a href="https://www.linkedin.com/in/ajadhavv" style="color:var(--muted); text-decoration:none;">LinkedIn</a></div>
+                </div>
+            </div>
         </div>
-        <div>
-            <p style="color: var(--accent); font-weight: bold;">
-                <a href="mailto:atulplay3@gmail.com" style="color:inherit; text-decoration:none;">atulplay3@gmail.com</a><br>
-                <a href="https://www.linkedin.com/in/ajadhavv" style="color:inherit; text-decoration:none;">LinkedIn Profile</a>
-            </p>
+
+        <div class="container">
+            <header>
+                <div class="intro">
+                    <h2>About</h2>
+                    <p>I build scalable digital experience platforms and content supply chains for Fortune 500 enterprises. I bridge business strategy and implementable platform solutions, and I frequently prototype POCs that inform product roadmaps.</p>
+                </div>
+
+                <div class="intro">
+                    <h2>Certifications</h2>
+                </div>
+
+                        <div class="content">
+                            <ul>
+                                <li>TOGAF</li>
+                                <li>Microsoft Azure</li>
+                                <li>Adobe Workfront Fusion</li>
+                                <li>Adobe AEM Sites</li>
+                            </ul>
+
+               <!-- <div class="contact" aria-label="Contact">
+                    <div style="margin-top:18px;">Email: <a href="mailto:atulplay3@gmail.com">atulplay3@gmail.com</a></div>
+                    <div style="margin-top:8px;">Location: Stamford, CT</div>
+                </div>
+                -->
+            </header>
+
+            <main>
+                <section id="about">
+                    <h3>Profile</h3>
+                    <p>I am a well-rounded Enterprise Architect with 16+ years of experience leading transformations across financial services, automotive, and telecom. Currently at <strong>Adobe</strong>, I advise global organizations on platform strategy and content supply chain architecture.</p>
+                </section>
+
+                <section id="experience">
+                    <h3>Experience</h3>
+
+                    <div class="experience-card">
+                        <div class="date">Feb 2023 — Present</div>
+                        <div class="content">
+                            <h4>Senior Enterprise Architect · Adobe</h4>
+                            <div>
+                                <ul>
+                                    <li>Lead future-state architecture planning and transformation strategy for strategic global accounts.</li>
+                                    <li>Integrate AEM, Analytics, Target, and Adobe Experience Platform (AEP) with enterprise goals.</li>
+                                    <li>Align C-Suite stakeholders (CMO, CIO, CTO) to drive platform value realization.</li>
+                                </ul>
+                                <div style="margin-top:10px;">
+                                    <span class="skills-tag">Adobe Experience Cloud</span>
+                                    <span class="skills-tag">Content Supply Chain</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="date">Apr 2021 — Jul 2021</div>
+                        <div class="content">
+                            <h4>Technical Architect · AllianceBernstein</h4>
+                            <ul>
+                                <li>Led global AEM implementations ensuring alignment with architecture principles.</li>
+                                <li>Designed stable AEM Author, Publish, and Dispatcher environments.</li>
+                                <li>Implemented CI/CD governance to streamline release management.</li>
+                            </ul>
+                            <div style="margin-top:10px;">
+                                <span class="skills-tag">CI/CD</span>
+                                <span class="skills-tag">AEM Architecture</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="date">Jun 2020 — Apr 2021</div>
+                        <div class="content">
+                            <h4>CMS Development Lead · Franklin Templeton</h4>
+                            <ul>
+                                <li>Championed transition from Adobe AEM to Bloomreach for global web presence.</li>
+                                <li>Engineered Bloomreach content models and taxonomy structures.</li>
+                                <li>Migrated legacy AEM repositories while preserving governance frameworks.</li>
+                            </ul>
+                            <div style="margin-top:10px;">
+                                <span class="skills-tag">Bloomreach</span>
+                                <span class="skills-tag">Angular</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="skills">
+                    <h3>Skills</h3>
+                    <div style="margin-bottom:12px;">
+                        <span class="skills-tag">TOGAF</span>
+                        <span class="skills-tag">AEM</span>
+                        <span class="skills-tag">Adobe Workfront Fusion</span>
+                        <span class="skills-tag">Azure Fundamentals</span>
+                        <span class="skills-tag">CI/CD</span>
+                    </div>
+                </section>
+
+                <section id="skills">
+                    <h3>Education</h3>
+                    <p style="font-size:0.92rem; margin-top:10px;">
+                        <strong>Bachelor of Information Technology</strong><br />
+                        University of Mumbai (2004 — 2007)
+                    </p>
+                </section>
+            </main>
         </div>
-    </header>
-
-    <main>
-        <section id="about">
-            <p>
-                I am a well-rounded Enterprise Architect with 16+ years of experience leading transformations across financial services, automotive, and telecom. 
-                Currently at <strong>Adobe</strong>, I advise global organizations on platform strategy, specializing in <strong>Content Supply Chain Architecture</strong> to automate operations from asset creation to delivery.
-            </p>
-            <p style="margin-top: 20px;">
-                I bridge the gap between abstract business goals and implementable systems, often building prototypes that shape Adobe's own product roadmap.
-            </p>
-        </section>
-
-        <section id="experience">
-            <div class="experience-card">
-                <div class="date">Feb 2023 — Present</div>
-                <div class="content">
-                    <h3>Senior Enterprise Architect · Adobe</h3>
-                    <h4>Stamford, CT</h4>
-                    <ul>
-                        <li>Lead future-state architecture planning and transformation strategy for strategic global accounts.</li>
-                        <li>Integrate AEM, Analytics, Target, and Adobe Experience Platform (AEP) with enterprise goals.</li>
-                        <li>Align C-Suite stakeholders (CMO, CIO, CTO) to drive platform value realization.</li>
-                    </ul>
-                    <span class="skills-tag">Adobe Experience Cloud</span>
-                    <span class="skills-tag">Content Supply Chain</span>
-                </div>
-            </div>
-
-            <div class="experience-card">
-                <div class="date">Apr 2021 — Jul 2021</div>
-                <div class="content">
-                    <h3>Technical Architect · AllianceBernstein</h3>
-                    <ul>
-                        <li>Led global AEM implementations ensuring alignment with architecture principles.</li>
-                        <li>Designed stable AEM Author, Publish, and Dispatcher environments.</li>
-                        <li>Implemented CI/CD governance to streamline release management.</li>
-                    </ul>
-                    <span class="skills-tag">CI/CD</span>
-                    <span class="skills-tag">AEM Architecture</span>
-                </div>
-            </div>
-
-            <div class="experience-card">
-                <div class="date">Jun 2020 — Apr 2021</div>
-                <div class="content">
-                    <h3>CMS Development Lead · Franklin Templeton</h3>
-                    <ul>
-                        <li>Championed transition from Adobe AEM to Bloomreach for global web presence.</li>
-                        <li>Engineered Bloomreach content models and taxonomy structures.</li>
-                        <li>Migrated legacy AEM repositories while preserving governance frameworks.</li>
-                    </ul>
-                    <span class="skills-tag">Bloomreach</span>
-                    <span class="skills-tag">Angular</span>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills">
-            <h3 style="color: var(--text-bright); margin-bottom: 20px;">Technical Arsenal</h3>
-            <div>
-                <span class="skills-tag">TOGAF Enterprise Architecture</span>
-                <span class="skills-tag">Adobe Experience Manager (AEM)</span>
-                <span class="skills-tag">Adobe Workfront Fusion</span>
-                <span class="skills-tag">Azure Fundamentals</span>
-                <span class="skills-tag">OpenText TeamSite</span>
-                <span class="skills-tag">CI/CD Deployment</span>
-                <span class="skills-tag">Product Innovation (POC)</span>
-            </div>
-            
-            <h3 style="color: var(--text-bright); margin-top: 40px; margin-bottom: 10px;">Education</h3>
-            <p style="font-size: 0.9rem;">
-                <strong>Bachelor of Information Technology</strong><br>
-                University of Mumbai (2004 — 2007)
-            </p>
-        </section>
-    </main>
-</div>
-
+    </div>
 </body>
 </html>
