@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Atul Jadhav | Enterprise Architect</title>
     <style>
-        :root{
-            --bg:#0b1220;
-            --panel:#071026;
-            --muted:#94a3b8;
-            --bright:#e2e8f0;
-            --accent:#5eead4;
-            --glass: rgba(255,255,255,0.04);
-            --card-hover: rgba(30,41,59,0.5);
-            --max-w:1200px;
-        }
+
+    :root{
+        --bg:#0b1020;
+        --panel:#0f172a;
+        --muted:#94a3b8;
+        --bright:#e2e8f0;
+        --accent:#7c9cff;        /* soft blue */
+        --accent-2:#a78bfa;      /* purple */
+        --glass: rgba(255,255,255,0.05);
+        --card-hover: rgba(30,41,59,0.5);
+        --max-w:1200px;
+    }
 
         *{box-sizing:border-box;margin:0;padding:0}
         html,body{height:100%}
@@ -52,7 +54,7 @@
                     transform: translate(40px, -20px) scale(1.05);
                 }
             }
-            
+
             body::after {
                 content:"";
                 position: fixed;
@@ -76,47 +78,119 @@
         }
 
         /* Banner */
+/* ===== Premium Animated Banner ===== */
+
         .banner {
+            position: relative;
             display:flex;
             align-items:center;
             justify-content:center;
-            padding: 28px 24px;
-            background: linear-gradient(90deg, rgba(94,234,212,0.06), rgba(99,102,241,0.04));
-            backdrop-filter: blur(6px);
-            border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding: 48px 24px;
+            background: linear-gradient(
+            180deg,
+            rgba(255,255,255,0.02),
+            transparent
+            );
+            backdrop-filter: blur(8px);
         }
-        .banner-inner{
+
+        
+
+        /* Animated gradient mesh */
+        .banner::before {
+            content:"";
+            position:absolute;
+            inset:-30%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(124,156,255,0.25), transparent 40%),
+                radial-gradient(circle at 80% 60%, rgba(167,139,250,0.25), transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(99,102,241,0.2), transparent 50%);
+            animation: bannerFloat 16s ease-in-out infinite alternate;
+            filter: blur(80px);
+            z-index:0;
+        }
+
+        /* subtle digital grid */
+        .banner::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -75%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(
+                120deg,
+                transparent 0%,
+                rgba(255,255,255,0.08) 50%,
+                transparent 100%
+            );
+            transform: rotate(25deg);
+            animation: lightSweep 10s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes lightSweep {
+            0% {
+                left: -75%;
+            }
+            50% {
+                left: 125%;
+            }
+            100% {
+                left: 125%;
+            }
+        }
+
+        /* Content stays above animation */
+        .banner-inner {
+            position:relative;
+            z-index:2;
             width:100%;
             max-width:var(--max-w);
+            display:flex;
+            gap:24px;
+            align-items:center;
+        }
+
+        .banner .brand {
             display:flex;
             gap:20px;
             align-items:center;
         }
-        .banner .brand {
-            display:flex;
-            gap:16px;
-            align-items:center;
+
+        /* Elegant glow behind headshot */
+        .headshot {
+            width:120px;
+            height:120px;
+            border-radius:999px;
+            object-fit:cover;
+            border:2px solid rgba(255,255,255,0.15);
+            box-shadow:
+                0 0 0 4px rgba(124,156,255,0.15),
+                0 20px 40px rgba(0,0,0,0.6);
+            transition: transform .4s ease;
         }
 
-        .headshot {
-            width:118px;
-            height:115px;
-            border-radius: 999px;
-            object-fit:cover;
-            border:3px solid rgba(255,255,255,0.06);
-            box-shadow: 0 6px 22px rgba(2,6,23,0.6);
-            background: linear-gradient(180deg,#0f172a,#071026);
+        .headshot:hover {
+            transform: scale(1.05);
         }
+
+        /* Typography refinement */
         .banner h1{
             color:var(--bright);
-            font-size:1.4rem;
-            letter-spacing:0.01em;
+            font-size:1.8rem;
+            letter-spacing:0.02em;
             margin:0;
         }
+
         .banner .sub {
-            color:var(--accent);
+            margin-top:6px;
             font-weight:600;
-            font-size:0.85rem;
+            font-size:0.9rem;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* Main container: left fixed, right scroll */
