@@ -9,7 +9,7 @@
 
 <style>
 :root{
-    --bg:#05060a;
+    --bg:#111827;   /* gray-900 */
     --panel:rgba(255,255,255,0.04);
     --panel-strong:rgba(255,255,255,0.06);
     --border:rgba(255,255,255,0.08);
@@ -22,6 +22,18 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
+
+.executive-summary{
+    padding:40px;
+    border-bottom:1px solid var(--border);
+    background:rgba(255,255,255,.02);
+}
+
+.executive-summary h2{
+    color:var(--text);
+    margin-bottom:14px;
+    font-size:1.4rem;
+}
 
 body{
     font-family:"Inter",sans-serif;
@@ -298,6 +310,24 @@ section h3{
     aside{width:100%}
     .banner{flex-direction:column;text-align:center}
 }
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(124,156,255,.06), transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(167,139,250,.06), transparent 40%);
+    animation:drift 40s ease-in-out infinite alternate;
+    z-index:-2;
+}
+
+@keyframes drift{
+    0%{transform:translate(0,0);}
+    100%{transform:translate(-60px,-40px);}
+}
+
+
 </style>
 </head>
 
@@ -318,6 +348,15 @@ section h3{
 <a href="https://www.linkedin.com/in/ajadhavv" target="_blank">in</a>
 </div>
 </div>
+</div>
+
+<div class="executive-summary">
+<h2>Enterprise Architecture Leadership</h2>
+<p>
+Driving enterprise-wide digital transformation across Fortune 500 organizations,
+specializing in content supply chain modernization, platform governance,
+and scalable experience architecture aligned to measurable business outcomes.
+</p>
 </div>
 
 <div class="container">
@@ -341,8 +380,8 @@ section h3{
 <section>
 <h3>About</h3>
 <p>
-Enterprise Architect with 16+ years leading large-scale digital transformation across financial services, automotive, telecom, and technology sectors.
-Currently advising Fortune 500 enterprises on Adobe Experience Cloud strategy, content supply chain design, and scalable architecture adoption.
+Senior Enterprise Architect driving enterprise-scale transformation initiatives across financial services, automotive, telecommunications, and technology sectors. 
+Trusted advisor to C-suite stakeholders on digital modernization, platform governance, and measurable value realization.
 </p>
 
 <ul style="margin-top:16px;list-style:none;">
