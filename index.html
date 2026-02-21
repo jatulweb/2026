@@ -1,472 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atul Jadhav | Enterprise Architect</title>
-    <style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Atul Jadhav | Enterprise Architect</title>
 
-    :root{
-        --bg:#0b1020;
-        --panel:#0f172a;
-        --muted:#94a3b8;
-        --bright:#e2e8f0;
-        --accent:#7c9cff;        /* soft blue */
-        --accent-2:#a78bfa;      /* purple */
-        --glass: rgba(255,255,255,0.05);
-        --card-hover: rgba(30,41,59,0.5);
-        --max-w:1200px;
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --bg:#05060a;
+    --panel:rgba(255,255,255,0.04);
+    --panel-strong:rgba(255,255,255,0.06);
+    --border:rgba(255,255,255,0.08);
+    --text:#e6e9f2;
+    --muted:#9aa3b2;
+    --accent:#7c9cff;
+    --accent2:#a78bfa;
+    --radius:18px;
+    --max:1200px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:"Inter",sans-serif;
+    background:var(--bg);
+    color:var(--muted);
+    line-height:1.7;
+    overflow-x:hidden;
+}
+
+/* ===== Flashing Move Effect ===== */
+
+.page{
+    position:relative;
+    overflow:hidden;
+}
+
+/* Moving light sweep */
+.page::before{
+    content:"";
+    position:absolute;
+    top:-50%;
+    left:-75%;
+    width:50%;
+    height:200%;
+    background:linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255,255,255,0.06) 50%,
+        transparent 100%
+    );
+    transform:rotate(25deg);
+    animation:lightSweep 12s ease-in-out infinite;
+    pointer-events:none;
+}
+
+/* Soft global pulse */
+.page::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(124,156,255,0.03);
+    animation:softPulse 6s ease-in-out infinite;
+    pointer-events:none;
+}
+
+/* Keyframes */
+
+@keyframes lightSweep{
+    0%{
+        left:-75%;
+        opacity:0;
     }
+    10%{
+        opacity:1;
+    }
+    50%{
+        left:125%;
+        opacity:0.8;
+    }
+    100%{
+        left:125%;
+        opacity:0;
+    }
+}
 
-        *{box-sizing:border-box;margin:0;padding:0}
-        html,body{height:100%}
-        body{
-                font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-                background: #05060a;
-                color:var(--muted);
-                line-height:1.6;
-                position: relative;
-                overflow-x: hidden;
-            }
+@keyframes softPulse{
+    0%,100%{opacity:0.15;}
+    50%{opacity:0.35;}
+}
 
-            /* Animated digital glow background */
-            body::before {
-                content: "";
-                position: fixed;
-                inset: -20%;
-                background:
-                    radial-gradient(circle at 20% 30%, rgba(94,234,212,0.15), transparent 40%),
-                    radial-gradient(circle at 80% 70%, rgba(99,102,241,0.12), transparent 45%),
-                    radial-gradient(circle at 50% 50%, rgba(56,189,248,0.08), transparent 50%);
-                animation: floatGlow 18s ease-in-out infinite alternate;
-                z-index: -1;
-                filter: blur(80px);
-            }
+/* ================= Moving Floating Orbs ================= */
 
-            @keyframes floatGlow {
-                0% {
-                    transform: translate(0px, 0px) scale(1);
-                }
-                50% {
-                    transform: translate(-40px, 30px) scale(1.1);
-                }
-                100% {
-                    transform: translate(40px, -20px) scale(1.05);
-                }
-            }
+.orb{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.35;
+    z-index:-1;
+}
 
-            body::after {
-                content:"";
-                position: fixed;
-                inset:0;
-                background-image:
-                    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-                background-size: 60px 60px;
-                z-index:-1;
-                pointer-events:none;
-            }
+.orb1{
+    width:400px;height:400px;
+    background:radial-gradient(circle, var(--accent), transparent 70%);
+    top:-100px;left:-100px;
+    animation:move1 22s ease-in-out infinite alternate;
+}
 
-        /* Page layout */
-        .page {
-            max-width:var(--max-w);
-            margin: 36px auto;
-            background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-            border-radius:14px;
-            overflow:hidden;
-            box-shadow: 0 10px 40px rgba(2,6,23,0.6);
-        }
+.orb2{
+    width:500px;height:500px;
+    background:radial-gradient(circle, var(--accent2), transparent 70%);
+    bottom:-150px;right:-150px;
+    animation:move2 26s ease-in-out infinite alternate;
+}
 
-        /* Banner */
-/* ===== Premium Animated Banner ===== */
+@keyframes move1{
+    0%{transform:translate(0,0)}
+    100%{transform:translate(150px,120px)}
+}
 
-        .banner {
-            position: relative;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding: 48px 24px;
-            background: linear-gradient(
-            180deg,
-            rgba(255,255,255,0.02),
-            transparent
-            );
-            backdrop-filter: blur(8px);
-        }
+@keyframes move2{
+    0%{transform:translate(0,0)}
+    100%{transform:translate(-180px,-140px)}
+}
 
-        
+/* ================= Layout ================= */
 
-        /* Animated gradient mesh */
-        .banner::before {
-            content:"";
-            position:absolute;
-            inset:-30%;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(124,156,255,0.25), transparent 40%),
-                radial-gradient(circle at 80% 60%, rgba(167,139,250,0.25), transparent 40%),
-                radial-gradient(circle at 50% 80%, rgba(99,102,241,0.2), transparent 50%);
-            animation: bannerFloat 16s ease-in-out infinite alternate;
-            filter: blur(80px);
-            z-index:0;
-        }
+.page{
+    max-width:var(--max);
+    margin:40px auto;
+    border-radius:24px;
+    overflow:hidden;
+    backdrop-filter:blur(18px);
+    background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);
+    box-shadow:0 40px 80px rgba(0,0,0,.6);
+}
 
-        /* subtle digital grid */
-        .banner::after {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -75%;
-            width: 50%;
-            height: 200%;
-            background: linear-gradient(
-                120deg,
-                transparent 0%,
-                rgba(255,255,255,0.08) 50%,
-                transparent 100%
-            );
-            transform: rotate(25deg);
-            animation: lightSweep 10s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 1;
-        }
+.banner{
+    padding:60px 40px;
+    display:flex;
+    gap:28px;
+    align-items:center;
+    border-bottom:1px solid var(--border);
+}
 
-        @keyframes lightSweep {
-            0% {
-                left: -75%;
-            }
-            50% {
-                left: 125%;
-            }
-            100% {
-                left: 125%;
-            }
-        }
+.headshot{
+    width:130px;height:130px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--border);
+    transition:.4s ease;
+}
 
-        /* Content stays above animation */
-        .banner-inner {
-            position:relative;
-            z-index:2;
-            width:100%;
-            max-width:var(--max-w);
-            display:flex;
-            gap:24px;
-            align-items:center;
-        }
+.headshot:hover{
+    transform:scale(1.06);
+}
 
-        .banner .brand {
-            display:flex;
-            gap:20px;
-            align-items:center;
-        }
+.banner h1{
+    font-size:2rem;
+    font-weight:700;
+    color:var(--text);
+}
 
-        /* Elegant glow behind headshot */
-        .headshot {
-            width:120px;
-            height:120px;
-            border-radius:999px;
-            object-fit:cover;
-            border:2px solid rgba(255,255,255,0.15);
-            box-shadow:
-                0 0 0 4px rgba(124,156,255,0.15),
-                0 20px 40px rgba(0,0,0,0.6);
-            transition: transform .4s ease;
-        }
+.sub{
+    margin-top:6px;
+    font-weight:600;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
 
-        .headshot:hover {
-            transform: scale(1.05);
-        }
+.social{
+    display:flex;
+    gap:14px;
+    margin-top:16px;
+}
 
-        /* Typography refinement */
-        .banner h1{
-            color:var(--bright);
-            font-size:1.8rem;
-            letter-spacing:0.02em;
-            margin:0;
-        }
+.social a{
+    width:44px;height:44px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text);
+    text-decoration:none;
+    transition:.25s ease;
+}
 
-        .banner .sub {
-            margin-top:6px;
-            font-weight:600;
-            font-size:0.9rem;
-            background: linear-gradient(90deg, var(--accent), var(--accent-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.social a:hover{
+    transform:translateY(-4px);
+    background:var(--panel-strong);
+}
 
-        /* Main container: left fixed, right scroll */
-        .container{
-            display:flex;
-            gap:0;
-            padding: 36px;
-        }
+/* ================= Content ================= */
 
-        header{
-            width:320px;
-            min-width:260px;
-            padding-right:28px;
-            border-right:1px solid rgba(255,255,255,0.03);
-            color:var(--muted);
-        }
+.container{
+    display:flex;
+    padding:40px;
+    gap:60px;
+}
 
-        header .intro {
-            margin-bottom:22px;
-        }
-        header h2{ color:var(--bright); font-size:1rem; font-weight:600; margin-top:4px}
-        header p{ font-size:0.92rem; color:var(--muted); margin-top:10px; max-width:260px }
+aside{width:280px}
 
-        nav{ margin-top:18px }
-        nav ul{ list-style:none; display:block; padding-left:0 }
-        nav li{ margin:10px 0 }
-        nav a{
-            color:var(--muted);
-            text-decoration:none;
-            font-weight:600;
-            font-size:0.78rem;
-            letter-spacing:0.09em;
-            text-transform:uppercase;
-            display:inline-block;
-            transition:all .18s ease;
-        }
-        nav a:hover{ color:var(--accent); transform:translateX(6px) }
+aside h3{
+    color:var(--text);
+    font-size:.85rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    margin-bottom:12px;
+}
 
-        .contact{ margin-top:28px; font-weight:700; color:var(--accent) }
-        .contact a{ color:inherit; text-decoration:none; font-weight:600 }
+aside p{font-size:.9rem;margin-bottom:8px}
 
-        main{
-            flex:1;
-            padding-left:36px;
-        }
-        section{ margin-bottom:36px; color:var(--muted) }
-        section h3{ color:var(--bright); margin-bottom:14px }
-        .experience-card{
-            background:var(--glass);
-            border:1px solid rgba(255,255,255,0.02);
-            padding:16px;
-            border-radius:10px;
-            margin-bottom:16px;
-            display:grid;
-            grid-template-columns:110px 1fr;
-            gap:16px;
-            align-items:start;
-            transition: box-shadow .18s ease, transform .12s ease;
-        }
-        .experience-card:hover{ box-shadow:0 8px 40px rgba(2,6,23,0.6); transform:translateY(-4px) }
-        .date{ font-size:0.78rem; color:var(--muted); font-weight:700; text-transform:uppercase }
-        .content h4{ margin:0 0 8px 0; color:var(--accent); font-weight:700 }
-        .content ul{ list-style:none; padding-left:0; margin-top:8px; color:var(--muted) }
-        .content li{ margin-bottom:8px; position:relative; padding-left:18px }
-        .content li::before{ content:"▹"; position:absolute; left:0; color:var(--accent) }
+.cert-list a{
+    display:block;
+    color:var(--accent);
+    text-decoration:none;
+    margin-bottom:8px;
+    font-size:.9rem;
+    transition:.2s;
+}
 
-        .skills-tag{ display:inline-block; background:rgba(94,234,212,0.07); color:var(--accent); padding:6px 10px; border-radius:999px; font-size:0.78rem; margin:6px 8px 0 0; font-weight:700 }
+.cert-list a:hover{color:var(--accent2)}
 
-        @media (max-width:980px){
-            .container{ flex-direction:column; padding:20px }
-            header{ width:100%; border-right:0; border-bottom:1px solid rgba(255,255,255,0.03); padding-bottom:18px; margin-bottom:18px }
-            .banner .brand{ gap:12px }
-            .headshot{ width:72px;height:72px }
-            .experience-card{ grid-template-columns:1fr; }
-        }
+main{flex:1}
 
+section{margin-bottom:50px}
 
-        /* Container */
-        .social-container {
-        display: flex;
-        gap: 14px;
-        margin-top: 10px;
-        }
+section h3{
+    color:var(--text);
+    margin-bottom:18px;
+    font-size:1.1rem;
+}
 
-        /* Button */
-        .social-btn {
-        width: 44px;
-        height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 14px;
+/* Experience Cards */
 
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+.card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:22px;
+    margin-bottom:18px;
+    transition:.3s ease;
+}
 
-        color: #c9ccd6;
-        text-decoration: none;
+.card:hover{
+    transform:translateY(-6px);
+    background:var(--panel-strong);
+}
 
-        transition: all 0.25s ease;
-        }
+.date{
+    font-size:.75rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+}
 
-        /* Icon sizing */
-        .social-btn svg {
-        width: 18px;
-        height: 18px;
-        }
+.card h4{
+    color:var(--accent);
+    margin-bottom:10px;
+}
 
-        /* Hover effect */
-        .social-btn:hover {
-        background: rgba(255, 255, 255, 0.10);
-        border-color: rgba(255, 255, 255, 0.15);
-        color: #ffffff;
-        transform: translateY(-2px);
-        }
+.card ul{list-style:none}
 
-        /* Subtle click feedback */
-        .social-btn:active {
-        transform: translateY(0);
-        }
+.card li{
+    margin-bottom:8px;
+    padding-left:18px;
+    position:relative;
+}
 
+.card li::before{
+    content:"▹";
+    position:absolute;
+    left:0;
+    color:var(--accent);
+}
 
-    </style>
+.tags span{
+    display:inline-block;
+    background:rgba(124,156,255,.08);
+    border:1px solid rgba(124,156,255,.2);
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:.8rem;
+    margin:6px 8px 0 0;
+    color:var(--accent);
+}
+
+/* Responsive */
+
+@media(max-width:980px){
+    .container{flex-direction:column}
+    aside{width:100%}
+    .banner{flex-direction:column;text-align:center}
+}
+</style>
 </head>
+
 <body>
-    <div class="page">
-        <div class="banner" role="banner">
-            <div class="banner-inner">
-                <div class="brand">
-                    <!-- Put your headshot at images/headshot.jpg or update path -->
-                    <img class="headshot" src="https://media.licdn.com/dms/image/v2/D4E03AQF0G4RP8_z7RQ/profile-displayphoto-scale_200_200/B4EZwwPH14JAAY-/0/1770335801629?e=1773273600&v=beta&t=Wn6oPgb_JrL5QLSW_tg9SO6vbkALyxpXwCYiclqBZZU" alt="Atul Jadhav headshot" />
-                    <div>
-                        <h1>Atul Jadhav</h1>
-                        <div class="sub">Senior Enterprise Architect — Content Supply Chain & Experience Platforms</div>
-                        <div class="social-container">
-                            <a href="mailto:jatulweb@gmail.com" class="social-btn" aria-label="Email">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 13.5L2 6.75V18h20V6.75L12 13.5z"/>
-                                <path d="M12 11L2 4h20L12 11z"/>
-                                </svg>
-                            </a>
 
-                            <a href="https://www.linkedin.com/in/ajadhavv" 
-                                target="_blank" 
-                                class="social-btn" 
-                                aria-label="LinkedIn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6S0 4.88 0 3.5 1.11 1 2.49 1s2.49 1.12 2.49 2.5zM.5 8h4v14h-4V8zm7.5 0h3.8v2h.05c.53-1 1.82-2.05 3.75-2.05 4 0 4.75 2.63 4.75 6.05V22h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V22h-4V8z"/>
-                                </svg>
-                            </a>
-                        </div>
-                        
-                    </div>
-                </div>
-                    <div style="margin-left:auto; color:var(--muted); font-size:0.9rem;">
-                        <div/>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
 
-        <div class="container">
-            <header>
-                <div class="intro">
-                    <h2>About</h2>
-                    <p>I build scalable digital experience platforms and content supply chains for Fortune 500 enterprises. I bridge business strategy and implementable platform solutions, and I frequently prototype POCs that inform product roadmaps.</p>
-                </div>
+<div class="page">
 
-                <div class="intro">
-                    <h2>Certifications</h2>
-                </div>
+<div class="banner">
+<img class="headshot" src="https://media.licdn.com/dms/image/v2/D4E03AQF0G4RP8_z7RQ/profile-displayphoto-scale_200_200/B4EZwwPH14JAAY-/0/1770335801629?e=1773273600&v=beta&t=Wn6oPgb_JrL5QLSW_tg9SO6vbkALyxpXwCYiclqBZZU" alt="Atul Jadhav headshot" />
+<div>
+<h1>Atul Jadhav</h1>
+<div class="sub">Senior Enterprise Architect — Content Supply Chain & Experience Platforms</div>
+<div class="social">
+<a href="mailto:jatulweb@gmail.com">✉</a>
+<a href="https://www.linkedin.com/in/ajadhavv" target="_blank">in</a>
+</div>
+</div>
+</div>
 
-                        <div class="content">
-                            <ul>
-                                <li>TOGAF</li>
-                                <li>Microsoft Azure</li>
-                                <li>Adobe Workfront Fusion</li>
-                                <li>Adobe AEM Sites</li>
-                            </ul>
+<div class="container">
 
-               <!-- <div class="contact" aria-label="Contact">
-                    <div style="margin-top:18px;">Email: <a href="mailto:atulplay3@gmail.com">atulplay3@gmail.com</a></div>
-                    <div style="margin-top:8px;">Location: Stamford, CT</div>
-                </div>
-                -->
-            </header>
+<aside>
+<h3>Location</h3>
+<p>Stamford, CT 06902</p>
+<p>United States</p>
 
-            <main>
-                <section id="about">
-                    <h3>About</h3>
-                    <p>I am a well-rounded Enterprise Architect with total 16+ years of experience leading large-scale digital experience transformations across financial services, automotive, tech, and telecom. In my current engagement as a Senior Enterprise Architect at Adobe, I advise Fortune 500 organizations on platform strategy, content supply chain design, and scalable architecture adoption across the full Adobe Experience Cloud suite. With a reputation for blending strategic advisory with hands-on technical expertise, I specialize in:
-                        <ul>Long-term architecture roadmaps</ul>
-                        <ul>Platform modernization</ul>
-                        <ul>CX personalization</ul>
-                        <ul>Product innovation through live POCs</ul>
-                        <ul>Radical technical honesty in client engagements</ul>
-                        <ul>TOGAF and ADM.</ul>
-                What makes me different is my ability to convert abstract business objectives into real, implementable systems. I routinely build working prototypes for clients when no product currently exists, and many of these POCs have shaped Adobe’s product evolution.
-                My core focus is Content Supply Chain Architecture: helping enterprises design, automate, and scale content operations from asset creation to omnichannel delivery. I engage at the moment of digital friction and stay on through optimization, acting as a strategic partner across the full enterprise lifecycle.
-                Colleagues describe me as transparent, forward-thinking, and obsessively focused on client outcomes.</p>
-                </section>
+<h3 style="margin-top:30px;">Certifications</h3>
+<div class="cert-list">
+<a href="https://www.credly.com/badges/3fd6dcab-96b6-465f-ad15-7388f2e21c45" target="_blank">TOGAF</a>
+<a href="https://www.credly.com/badges/6539acbe-6500-4a66-b16b-80045d93f706" target="_blank">Microsoft Azure Fundamentals</a>
+<a href="https://www.credly.com/users/atul-jadhav.6d59e3b8/badges#other" target="_blank">Adobe Workfront Fusion</a>
+<a href="https://www.credly.com/badges/ef1b1f10-94e6-40f9-9a4b-435e06d57bca" target="_blank">Adobe AEM Sites</a>
+</div>
+</aside>
 
-                <section id="experience">
-                    <h3>Experience</h3>
+<main>
 
-                    <div class="experience-card">
-                        <div class="date">Feb 2023 — Present</div>
-                        <div class="content">
-                            <h4>Senior Enterprise Architect · Adobe</h4>
-                            <div>
-                                <ul>
-                                    <li>Lead future-state architecture planning and transformation strategy for strategic global accounts.</li>
-                                    <li>Integrate AEM, Analytics, Target, and Adobe Experience Platform (AEP) with enterprise goals.</li>
-                                    <li>Align C-Suite stakeholders (CMO, CIO, CTO) to drive platform value realization.</li>
-                                </ul>
-                                <div style="margin-top:10px;">
-                                    <span class="skills-tag">Adobe Experience Cloud</span>
-                                    <span class="skills-tag">Content Supply Chain</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<section>
+<h3>About</h3>
+<p>
+Enterprise Architect with 16+ years leading large-scale digital transformation across financial services, automotive, telecom, and technology sectors.
+Currently advising Fortune 500 enterprises on Adobe Experience Cloud strategy, content supply chain design, and scalable architecture adoption.
+</p>
 
-                    <div class="experience-card">
-                        <div class="date">Apr 2021 — Jul 2021</div>
-                        <div class="content">
-                            <h4>Technical Architect · AllianceBernstein</h4>
-                            <ul>
-                                <li>Led global AEM implementations ensuring alignment with architecture principles.</li>
-                                <li>Designed stable AEM Author, Publish, and Dispatcher environments.</li>
-                                <li>Implemented CI/CD governance to streamline release management.</li>
-                            </ul>
-                            <div style="margin-top:10px;">
-                                <span class="skills-tag">CI/CD</span>
-                                <span class="skills-tag">AEM Architecture</span>
-                            </div>
-                        </div>
-                    </div>
+<ul style="margin-top:16px;list-style:none;">
+<li>• Long-term architecture roadmaps</li>
+<li>• Platform modernization</li>
+<li>• CX personalization</li>
+<li>• Product innovation via live POCs</li>
+<li>• Radical technical honesty in executive engagements</li>
+<li>• TOGAF & ADM practitioner</li>
+</ul>
+</section>
 
-                    <div class="experience-card">
-                        <div class="date">Jun 2020 — Apr 2021</div>
-                        <div class="content">
-                            <h4>CMS Development Lead · Franklin Templeton</h4>
-                            <ul>
-                                <li>Championed transition from Adobe AEM to Bloomreach for global web presence.</li>
-                                <li>Engineered Bloomreach content models and taxonomy structures.</li>
-                                <li>Migrated legacy AEM repositories while preserving governance frameworks.</li>
-                            </ul>
-                            <div style="margin-top:10px;">
-                                <span class="skills-tag">Bloomreach</span>
-                                <span class="skills-tag">Angular</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+<section>
+<h3>Experience</h3>
 
-                <section id="skills">
-                    <h3>Skills</h3>
-                    <div style="margin-bottom:12px;">
-                        <span class="skills-tag">TOGAF</span>
-                        <span class="skills-tag">AEM</span>
-                        <span class="skills-tag">Adobe Workfront Fusion</span>
-                        <span class="skills-tag">Azure Fundamentals</span>
-                        <span class="skills-tag">CI/CD</span>
-                    </div>
-                </section>
+<div class="card">
+<div class="date">Feb 2023 — Present</div>
+<h4>Senior Enterprise Architect · Adobe</h4>
+<ul>
+<li>Lead future-state architecture planning for global strategic accounts</li>
+<li>Integrate AEM, Analytics, Target & AEP with enterprise transformation goals</li>
+<li>Align C-suite stakeholders to drive measurable platform value realization</li>
+</ul>
+<div class="tags">
+<span>Adobe Experience Cloud</span>
+<span>Content Supply Chain</span>
+</div>
+</div>
 
-                <section id="skills">
-                    <h3>Education</h3>
-                    <p style="font-size:0.92rem; margin-top:10px;">
-                        <strong>Bachelor of Information Technology</strong><br />
-                        University of Mumbai (2004 — 2007)
-                    </p>
-                </section>
-            </main>
-        </div>
-    </div>
+<div class="card">
+<div class="date">Apr 2021 — Jul 2021</div>
+<h4>Technical Architect · AllianceBernstein</h4>
+<ul>
+<li>Led global AEM implementation programs</li>
+<li>Designed scalable Author, Publish & Dispatcher architecture</li>
+<li>Implemented CI/CD governance model</li>
+</ul>
+<div class="tags">
+<span>CI/CD</span>
+<span>AEM Architecture</span>
+</div>
+</div>
+
+<div class="card">
+<div class="date">Jun 2020 — Apr 2021</div>
+<h4>CMS Development Lead · Franklin Templeton</h4>
+<ul>
+<li>Transitioned global web platform from AEM to Bloomreach</li>
+<li>Engineered content models and taxonomy architecture</li>
+<li>Migrated legacy repositories with governance preservation</li>
+</ul>
+<div class="tags">
+<span>Bloomreach</span>
+<span>Angular</span>
+</div>
+</div>
+
+</section>
+
+<section>
+<h3>Skills</h3>
+<div class="tags">
+<span>TOGAF</span>
+<span>AEM</span>
+<span>Adobe Workfront Fusion</span>
+<span>Azure Fundamentals</span>
+<span>CI/CD</span>
+</div>
+</section>
+
+<section>
+<h3>Education</h3>
+<p><strong>Bachelor of Information Technology</strong><br>
+University of Mumbai (2004 — 2007)</p>
+</section>
+
+</main>
+</div>
+</div>
+
 </body>
 </html>
