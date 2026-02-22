@@ -228,16 +228,54 @@ aside h3{
 
 aside p{font-size:.9rem;margin-bottom:8px}
 
+/* ===== Executive Certification Links ===== */
+
 .cert-list a{
-    display:block;
-    color:var(--accent);
-    text-decoration:none;
-    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 14px;
+    margin-bottom:12px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    color:var(--text);
     font-size:.9rem;
-    transition:.2s;
+    font-weight:500;
+    text-decoration:none;
+    transition:all .25s ease;
+    position:relative;
+    overflow:hidden;
 }
 
-.cert-list a:hover{color:var(--accent2)}
+/* Subtle hover lift */
+.cert-list a:hover{
+    background:var(--panel-strong);
+    border-color:rgba(124,156,255,.4);
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(124,156,255,.15);
+}
+
+/* Arrow indicator */
+.cert-list a::after{
+    content:"↗";
+    font-size:.8rem;
+    color:var(--accent);
+    opacity:.7;
+    transition:.2s ease;
+}
+
+/* Stronger hover arrow */
+.cert-list a:hover::after{
+    opacity:1;
+    transform:translateX(3px);
+}
+
+/* Click feedback */
+.cert-list a:active{
+    transform:translateY(0);
+    box-shadow:none;
+}
 
 main{flex:1}
 
